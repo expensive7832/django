@@ -1,0 +1,21 @@
+from rest_framework import serializers
+from .models import User
+
+class userSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email', "username", "first_name", "last_name", "photo"]
+
+class LoginSerializer(serializers.Serializer):
+    email = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        user = User.objects.filter(email = data['email'], password = data['password']).first()
+
+        if user is not None: 
+            return user
+        else:
+            raise serializers.ValidationError("Invalid Credentials")
+        
+
