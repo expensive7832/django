@@ -9,6 +9,8 @@ class userSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     email = serializers.CharField()
     password = serializers.CharField()
+    id = serializers.IntegerField(read_only=True)
+    photo = serializers.CharField(read_only=True)
 
     def validate(self, data):
         user = User.objects.filter(email = data['email'], password = data['password']).first()

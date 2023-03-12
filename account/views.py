@@ -30,9 +30,9 @@ def Login(request):
     serializer = LoginSerializer(data=data)
 
     if serializer.is_valid():
-        return Response(data=serializer.data)
+        return Response(data={"info": serializer.data, "message": "login successful"})
     else:
-        return Response(data=serializer.errors)
+        return Response(data={"info": serializer.errors, "message":"error"})
     
 
 @api_view(['GET'])
